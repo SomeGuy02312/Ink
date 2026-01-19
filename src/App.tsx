@@ -6,7 +6,7 @@ import { SummaryCard } from './components/SummaryCard';
 import { DataModal } from './components/DataModal';
 import { loadSettings, saveSettings } from './core/storage';
 import type { AppSettings, HighlightGroup, SavedProfile } from './core/storage';
-import { X, Highlighter, Settings } from 'lucide-react';
+import { X, Highlighter, Settings, Eye, EyeOff } from 'lucide-react';
 import { ProfileMenu } from './components/ProfileMenu';
 
 function App() {
@@ -90,14 +90,19 @@ function App() {
     }
   };
 
+  const toggleGlobalEnabled = () => {
+    if (!settings) return;
+    updateSettings({ ...settings, globalEnabled: !settings.globalEnabled });
+  };
+
   if (loading || !settings) {
     return null;
   }
 
   return (
     <>
-      {/* Floating Launcher Icon */}
-      <div
+      {/* Floating Launcher Icon - only show if globally enabled */}
+      {settings.globalEnabled && <div
         onClick={() => toggleSidebar(true)}
         style={{
           display: sidebarOpen ? 'none' : 'flex',
@@ -121,7 +126,7 @@ function App() {
         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
       >
         <Highlighter size={24} />
-      </div>
+      </div>}
 
       {/* Sidebar UI */}
       <div
@@ -162,6 +167,15 @@ function App() {
           </div>
 
           <div className="flex items-center gap-xs">
+            <button
+              onClick={toggleGlobalEnabled}
+              className="btn btn-ghost"
+              style={{ padding: 6 }}
+              title={settings.globalEnabled ? 'Disable Highlighting' : 'Enable Highlighting'}
+            >
+              {settings.globalEnabled ? <Eye size={18} /> : <EyeOff size={18} style={{ opacity: 0.5 }} />}
+            </button>
+            <div style={{ width: 1, height: 16, background: 'var(--color-border)', margin: '0 4px' }} />
             <ProfileMenu
               profiles={settings.savedProfiles || []}
               onLoad={handleLoadProfile}

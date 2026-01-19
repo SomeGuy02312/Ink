@@ -11,7 +11,9 @@ console.log('[Ink] Content script loaded (React/ShadowDOM)');
 // 1. Highlighter Logic (Runs in main page context)
 async function initHighlighter() {
     const settings = await loadSettings();
-    if (document.body) {
+
+    // Only highlight if globally enabled
+    if (settings.globalEnabled && document.body) {
         // Delay initial scan to allow client-side hydration/styles to settle
         // This helps avoid highlighting "hidden" text that hasn't been hidden yet by the SPA
         setTimeout(() => {
@@ -34,12 +36,15 @@ async function initHighlighter() {
                     removeHighlights(document.body);
                 }
 
-                // 3. Restart observer with new settings
-                startObserver(newSettings);
+                // 3. Only restart if globally enabled
+                if (newSettings.globalEnabled) {
+                    // Restart observer with new settings
+                    startObserver(newSettings);
 
-                // 4. Re-scan entirely
-                if (document.body) {
-                    scanAndHighlight(document.body, newSettings);
+                    // Re-scan entirely
+                    if (document.body) {
+                        scanAndHighlight(document.body, newSettings);
+                    }
                 }
             });
         }

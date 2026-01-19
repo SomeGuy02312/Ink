@@ -25,6 +25,7 @@ export interface AppSettings {
     savedProfiles: SavedProfile[];
     caseSensitive: boolean;      // Global default (can be overridden by future group settings)
     processDynamicContent: boolean; // For infinite scroll
+    globalEnabled: boolean;      // Master on/off toggle for all highlighting
 }
 
 const STORAGE_KEY = 'recruiter_highlighter_settings';
@@ -36,7 +37,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
     groups: DEFAULT_PROFILES[0].groups,
     savedProfiles: DEFAULT_PROFILES,
     caseSensitive: false,
-    processDynamicContent: true
+    processDynamicContent: true,
+    globalEnabled: true
 };
 
 /**

@@ -19,6 +19,14 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 // 3. Handle Menu Clicks
 chrome.contextMenus.onClicked.addListener(async (info) => {
+    // Handle global toggle
+    if (info.menuItemId === 'ink-toggle-global') {
+        const settings = await loadSettings();
+        await saveSettings({ ...settings, globalEnabled: !settings.globalEnabled });
+        console.log(`[Ink] Global highlighting ${!settings.globalEnabled ? 'disabled' : 'enabled'}`);
+        return;
+    }
+
     if (info.menuItemId === ROOT_MENU_ID) {
         // Did they click the root? Usually disabled if it has children, or mapped to default.
         return;
@@ -44,12 +52,19 @@ async function updateContextMenus() {
     chrome.contextMenus.removeAll(async () => {
         const settings = await loadSettings();
 
+        // Add global toggle menu item (accessible from icon right-click)
+        chrome.contextMenus.create({
+            id: 'ink-toggle-global',
+            title: settings.globalEnabled ? 'Disable Highlighting' : 'Enable Highlighting',
+            contexts: ['action']
+        });
+
         if (!settings.groups || settings.groups.length === 0) {
             // Fallback if no groups
             return;
         }
 
-        // Create Root
+        // Create Root for selection context
         chrome.contextMenus.create({
             id: ROOT_MENU_ID,
             title: 'Ink Highlighter',
