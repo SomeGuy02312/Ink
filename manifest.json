@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Recruiter Highlighter",
+    "version": "1.0.0",
+    "description": "Highlight keywords and regex patterns in recruit profiles.",
+    "permissions": [
+        "sidePanel",
+        "storage",
+        "contextMenus",
+        "scripting"
+    ],
+    "side_panel": {
+        "default_path": "index.html"
+    },
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_title": "Open Recruiter Highlighter"
+    }
+}
