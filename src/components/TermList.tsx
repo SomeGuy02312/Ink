@@ -33,7 +33,7 @@ export function TermList({ terms, onChange }: TermListProps) {
                         border: '1px solid var(--color-border)',
                         padding: '2px 8px',
                         borderRadius: 'var(--radius-md)',
-                        fontSize: '0.85rem'
+                        fontSize: '13.5px'
                     }}>
                         {term}
                         <button
@@ -45,7 +45,7 @@ export function TermList({ terms, onChange }: TermListProps) {
                     </span>
                 ))}
                 {terms.length === 0 && (
-                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                    <span style={{ color: 'var(--color-text-muted)', fontSize: '14px', fontStyle: 'italic' }}>
                         No terms added yet.
                     </span>
                 )}
@@ -62,7 +62,7 @@ export function TermList({ terms, onChange }: TermListProps) {
                         padding: '6px 12px',
                         borderRadius: 'var(--radius-md)',
                         border: '1px solid var(--color-border)',
-                        fontSize: '0.9rem'
+                        fontSize: '14px'
                     }}
                 />
                 <button type="submit" className="btn btn-primary" disabled={!newTerm.trim()}>

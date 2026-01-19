@@ -71,7 +71,7 @@ export function GroupItem({ group, onUpdate, onDelete }: GroupItemProps) {
                             <button onClick={() => setIsEditing(false)} className="btn btn-ghost" style={{ color: 'red' }}><X size={14} /></button>
                         </div>
                     ) : (
-                        <span className="group-label" style={{ color: group.enabled ? 'inherit' : 'var(--color-text-muted)' }}>
+                        <span className="group-label" style={{ color: group.enabled ? 'inherit' : 'var(--color-text-muted)', fontSize: '15px' }}>
                             {group.name}
                         </span>
                     )}

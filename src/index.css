@@ -24,10 +24,10 @@
   --color-border: #e2e8f0;
 
   /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
 
   /* Radius */
   --radius-sm: 4px;
@@ -36,7 +36,6 @@
 
   /* Typography */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
   line-height: 1.5;
   font-weight: 400;
 
@@ -49,6 +48,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Normalize base font size to prevent scaling based on host page */
+  font-size: 16px;
 }
 
 /* Hide Scrollbar explicitly */
@@ -126,7 +128,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border-radius: var(--radius-md);
   font-weight: 500;
   transition: all 0.2s;
@@ -154,11 +156,11 @@ button {
 /* Fonts: Imported at top */
 /* Typography & Layout Utilities (Tailwind-ish) */
 .text-sm {
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .text-xs {
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 
 .font-semibold {
@@ -208,8 +210,8 @@ button {
 }
 
 .btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+  padding: 4px 8px;
+  font-size: 14px;
 }
 
 /* Animations */
@@ -237,15 +239,15 @@ button {
 
 /* Custom Components Styles */
 .form-checkbox {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 18px;
+  height: 18px;
   accent-color: var(--color-primary);
   cursor: pointer;
   margin: 0;
 }
 
 .section-title {
-  font-size: 0.85rem;
+  font-size: 13.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -255,7 +257,7 @@ button {
 }
 
 .group-label {
-  font-size: 0.925rem;
+  font-size: 15px;
   /* Slightly smaller than base but legible */
   font-weight: 500;
   white-space: nowrap;

@@ -48,13 +48,13 @@ export function GroupList({ groups, setGroups }: GroupListProps) {
     return (
         <div>
             <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-md)' }}>
-                <h2 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Highlight Groups</h2>
+                <h2 style={{ fontSize: '18px', fontWeight: 600 }}>Highlight Groups</h2>
 
                 <div style={{ position: 'relative' }}>
                     <button
                         onClick={() => setShowNewGroupMenu(!showNewGroupMenu)}
                         className="btn btn-primary btn-sm"
-                        style={{ fontSize: '0.9rem', padding: '0.4rem 0.8rem' }}
+                        style={{ fontSize: '14px', padding: '6px 12px' }}
                     >
                         <Plus size={16} style={{ marginRight: 6 }} />
                         New Group
@@ -83,7 +83,7 @@ export function GroupList({ groups, setGroups }: GroupListProps) {
                                     padding: '8px 12px',
                                     justifyContent: 'flex-start',
                                     borderRadius: 0,
-                                    fontSize: '0.9rem'
+                                    fontSize: '14px'
                                 }}
                             >
                                 <Type size={16} style={{ marginRight: 8, color: 'var(--color-text-muted)' }} />
@@ -115,7 +115,7 @@ export function GroupList({ groups, setGroups }: GroupListProps) {
 
             <div className="groups-container">
                 {keywordGroups.length === 0 && (
-                    <div style={{ fontStyle: 'italic', fontSize: '0.9rem', color: 'var(--color-text-muted)', opacity: 0.7 }}>None</div>
+                    <div style={{ fontStyle: 'italic', fontSize: '14px', color: 'var(--color-text-muted)', opacity: 0.7 }}>None</div>
                 )}
                 {keywordGroups.map(group => (
                     <GroupItem
@@ -134,7 +134,7 @@ export function GroupList({ groups, setGroups }: GroupListProps) {
 
             <div className="groups-container">
                 {regexGroups.length === 0 && (
-                    <div style={{ fontStyle: 'italic', fontSize: '0.9rem', color: 'var(--color-text-muted)', opacity: 0.7 }}>None</div>
+                    <div style={{ fontStyle: 'italic', fontSize: '14px', color: 'var(--color-text-muted)', opacity: 0.7 }}>None</div>
                 )}
                 {regexGroups.map(group => (
                     <GroupItem

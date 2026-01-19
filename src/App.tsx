@@ -137,7 +137,7 @@ function App() {
             }}>
               <span style={{ fontWeight: 700, fontSize: 14 }}>I</span>
             </div>
-            <h1 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-text-main)', margin: 0 }}>Ink</h1>
+            <h1 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-text-main)', margin: 0 }}>Ink</h1>
           </div>
 
           <div className="flex items-center gap-xs">
