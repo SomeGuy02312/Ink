@@ -42,7 +42,8 @@ function processNode(node: Node, settings: AppSettings) {
             allMatches.push({
                 ...m,
                 color: group.color,
-                groupName: group.name
+                groupName: group.name,
+                groupId: group.id
             });
         });
     }

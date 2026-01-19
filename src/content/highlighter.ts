@@ -12,7 +12,8 @@ export function highlightMatch(
     textNode: Text,
     match: MatchResult,
     color: string,
-    groupName: string
+    groupName: string,
+    groupId: string
 ): void {
     const parent = textNode.parentNode;
     if (!parent) return;
@@ -34,6 +35,7 @@ export function highlightMatch(
     mark.className = 'ink-highlight';
     mark.style.backgroundColor = color;
     mark.dataset.group = groupName;
+    mark.dataset.groupId = groupId;
     mark.dataset.match = match.match;
     mark.title = `${groupName}: ${match.match}`;
 
@@ -48,6 +50,7 @@ export function highlightMatch(
 export interface StyledMatch extends MatchResult {
     color: string;
     groupName: string;
+    groupId: string;
 }
 
 /**
@@ -65,7 +68,7 @@ export function applyHighlightsToNode(
     const sorted = [...matches].sort((a, b) => b.start - a.start);
 
     sorted.forEach(match => {
-        highlightMatch(textNode as Text, match, match.color, match.groupName);
+        highlightMatch(textNode as Text, match, match.color, match.groupName, match.groupId);
     });
 }
 

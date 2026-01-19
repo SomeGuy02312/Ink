@@ -97,7 +97,7 @@ export function GroupList({ groups, setGroups }: GroupListProps) {
                                     padding: '8px 12px',
                                     justifyContent: 'flex-start',
                                     borderRadius: 0,
-                                    fontSize: '0.9rem'
+                                    fontSize: '14px'
                                 }}
                             >
                                 <Code size={16} style={{ marginRight: 8, color: 'var(--color-text-muted)' }} />

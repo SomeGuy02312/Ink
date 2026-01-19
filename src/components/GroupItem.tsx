@@ -32,12 +32,16 @@ export function GroupItem({ group, onUpdate, onDelete }: GroupItemProps) {
     return (
         <div className="card" style={{ marginBottom: 'var(--spacing-md)', padding: 0, overflow: 'visible' }}>
             {/* Header / Summary */}
-            <div className="group-header flex items-center justify-between" style={{
-                padding: 'var(--spacing-sm) var(--spacing-md)',
+            {/* Header / Summary */}
+            <div className="group-header flex items-center" style={{
+                padding: '8px 16px',
                 background: 'var(--color-bg-card)',
-                borderBottom: expanded ? '1px solid var(--color-border)' : 'none'
+                borderBottom: expanded ? '1px solid var(--color-border)' : 'none',
+                gap: '8px',
+                height: '44px' // Enforce consistent height
             }}>
-                <div className="flex items-center gap-sm" style={{ flex: 1 }}>
+                {/* Left Controls: Chevron, Checkbox, Type */}
+                <div className="flex items-center gap-sm" style={{ flexShrink: 0 }}>
                     <button onClick={() => setExpanded(!expanded)} className="btn btn-ghost" style={{ padding: 4 }}>
                         {expanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                     </button>
@@ -49,13 +53,15 @@ export function GroupItem({ group, onUpdate, onDelete }: GroupItemProps) {
                         className="form-checkbox"
                     />
 
-                    {/* Group Type Icon */}
-                    <div style={{ color: 'var(--color-text-muted)', marginLeft: 4 }} title={group.type === 'regex' ? "Regex Group" : "Keyword Group"}>
+                    <div style={{ color: 'var(--color-text-muted)', display: 'flex' }} title={group.type === 'regex' ? "Regex Group" : "Keyword Group"}>
                         {group.type === 'regex' ? <Code size={14} /> : <Type size={14} />}
                     </div>
+                </div>
 
+                {/* Middle: Title (Truncates) */}
+                <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
                     {isEditing ? (
-                        <div className="flex items-center gap-sm">
+                        <div className="flex items-center gap-sm" style={{ width: '100%' }}>
                             <input
                                 type="text"
                                 value={editName}
@@ -63,68 +69,79 @@ export function GroupItem({ group, onUpdate, onDelete }: GroupItemProps) {
                                 style={{
                                     padding: '2px 6px',
                                     borderRadius: 'var(--radius-sm)',
-                                    border: '1px solid var(--color-accent)'
+                                    border: '1px solid var(--color-accent)',
+                                    width: '100%'
                                 }}
                                 autoFocus
                             />
-                            <button onClick={handleSaveName} className="btn btn-ghost" style={{ color: 'green' }}><Check size={14} /></button>
-                            <button onClick={() => setIsEditing(false)} className="btn btn-ghost" style={{ color: 'red' }}><X size={14} /></button>
+                            <button onClick={handleSaveName} className="btn btn-ghost" style={{ color: 'green', padding: 4 }}><Check size={14} /></button>
+                            <button onClick={() => setIsEditing(false)} className="btn btn-ghost" style={{ color: 'red', padding: 4 }}><X size={14} /></button>
                         </div>
                     ) : (
-                        <span className="group-label" style={{ color: group.enabled ? 'inherit' : 'var(--color-text-muted)', fontSize: '15px' }}>
+                        <span
+                            className="group-label"
+                            style={{
+                                color: group.enabled ? 'inherit' : 'var(--color-text-muted)',
+                                fontSize: '15px',
+                                cursor: 'default'
+                            }}
+                            title={group.name}
+                        >
                             {group.name}
                         </span>
                     )}
+                </div>
 
+                {/* Right: Actions (Fixed) */}
+                <div className="flex items-center gap-sm" style={{ flexShrink: 0 }}>
                     {!isEditing && (
-                        <button onClick={() => setIsEditing(true)} className="btn btn-ghost" style={{ padding: 4, opacity: 0.5 }}>
+                        <button onClick={() => setIsEditing(true)} className="btn btn-ghost" style={{ padding: 4, opacity: 0.5 }} title="Rename">
                             <Edit2 size={12} />
                         </button>
                     )}
-                </div>
 
-                <div className="flex items-center gap-sm" style={{ position: 'relative' }}>
                     {/* Color Circle Trigger */}
-                    <button
-                        onClick={() => setShowColorPicker(!showColorPicker)}
-                        title="Change Color"
-                        style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: '50%',
-                            backgroundColor: group.color,
-                            border: '1px solid var(--color-border)',
-                            cursor: 'pointer'
-                        }}
-                    />
+                    <div style={{ position: 'relative', display: 'flex' }}>
+                        <button
+                            onClick={() => setShowColorPicker(!showColorPicker)}
+                            title="Change Color"
+                            style={{
+                                width: 18,
+                                height: 18,
+                                borderRadius: '50%',
+                                backgroundColor: group.color,
+                                border: '1px solid var(--color-border)',
+                                cursor: 'pointer'
+                            }}
+                        />
+                        {/* Popover Color Picker */}
+                        {showColorPicker && (
+                            <div style={{
+                                position: 'absolute',
+                                top: '100%',
+                                right: 0,
+                                marginTop: 8,
+                                padding: 8,
+                                background: 'var(--color-bg-card)',
+                                border: '1px solid var(--color-border)',
+                                borderRadius: 'var(--radius-md)',
+                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                                zIndex: 20
+                            }}>
+                                <ColorPicker
+                                    color={group.color}
+                                    onChange={(c) => {
+                                        onUpdate({ ...group, color: c });
+                                        setShowColorPicker(false);
+                                    }}
+                                />
+                            </div>
+                        )}
+                    </div>
 
-                    <button onClick={() => onDelete(group.id)} className="btn btn-ghost" style={{ color: '#ef4444' }} title="Delete Group">
+                    <button onClick={() => onDelete(group.id)} className="btn btn-ghost" style={{ color: '#ef4444', padding: 4 }} title="Delete Group">
                         <Trash2 size={16} />
                     </button>
-
-                    {/* Popover Color Picker */}
-                    {showColorPicker && (
-                        <div style={{
-                            position: 'absolute',
-                            top: '100%',
-                            right: 0,
-                            marginTop: 8,
-                            padding: 8,
-                            background: 'var(--color-bg-card)',
-                            border: '1px solid var(--color-border)',
-                            borderRadius: 'var(--radius-md)',
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                            zIndex: 20
-                        }}>
-                            <ColorPicker
-                                color={group.color}
-                                onChange={(c) => {
-                                    onUpdate({ ...group, color: c });
-                                    setShowColorPicker(false);
-                                }}
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
 

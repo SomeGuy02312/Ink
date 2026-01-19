@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { Layout } from './components/Layout';
 import { GroupList } from './components/GroupList';
+import { SummaryCard } from './components/SummaryCard';
 import { DataModal } from './components/DataModal';
 import { loadSettings, saveSettings } from './core/storage';
 import type { AppSettings, HighlightGroup } from './core/storage';
@@ -162,6 +163,7 @@ function App() {
           style={{ flex: 1, overflowY: 'auto' }}
         >
           <Layout>
+            <SummaryCard groups={settings.groups} />
             <GroupList groups={settings.groups} setGroups={updateGroups} />
           </Layout>
         </div>

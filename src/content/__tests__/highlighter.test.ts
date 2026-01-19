@@ -28,7 +28,7 @@ describe('Highlighter', () => {
             groupName: 'test-group'
         };
 
-        highlightMatch(textNode, match, 'yellow', 'test-group');
+        highlightMatch(textNode, match, 'yellow', 'test-group', 'group-123');
 
         expect(container.innerHTML).toBe('Hello <mark class="ink-highlight" style="background-color: yellow;" data-group="test-group" data-match="world" title="test-group: world">world</mark>');
     });
