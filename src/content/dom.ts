@@ -51,18 +51,17 @@ export function getTextNodes(root: Node): Node[] {
                 }
 
                 // 3. Fallback for Common "Visually Hidden" Patterns (Screen Reader Text)
-                // Used by LinkedIn, Bootstrap, Tailwind, etc.
-                // 4. Fallback for Known "Visually Hidden" Patterns
                 const className = (parent.className && typeof parent.className === 'string') ? parent.className : '';
-                // artdeco-button__text is a common LinkedIn pattern for icon-only buttons that have hidden text
-                if (/visually-hidden|sr-only|accessibility-text|artdeco-button__text/i.test(className)) {
+                // Only filter standard sr-only classes. Remove specific LinkedIn button checks as they might be too aggressive.
+                if (/visually-hidden|sr-only|accessibility-text/i.test(className)) {
                     return NodeFilter.FILTER_REJECT;
                 }
 
-                // 4. ARIA Hidden
-                if (parent.getAttribute('aria-hidden') === 'true' || parent.closest('[aria-hidden="true"]')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
+                // REMOVED: ARIA Hidden check.
+                // Reasoning: LinkedIn often uses aria-hidden="true" on the *visual* text and puts the *screen-reader* text elsewhere.
+                // We want to highlight the VISUAL text for the user.
+
+                return NodeFilter.FILTER_ACCEPT;
 
                 return NodeFilter.FILTER_ACCEPT;
             }

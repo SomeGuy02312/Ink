@@ -5,8 +5,9 @@ import { GroupList } from './components/GroupList';
 import { SummaryCard } from './components/SummaryCard';
 import { DataModal } from './components/DataModal';
 import { loadSettings, saveSettings } from './core/storage';
-import type { AppSettings, HighlightGroup } from './core/storage';
+import type { AppSettings, HighlightGroup, SavedProfile } from './core/storage';
 import { X, Highlighter, Settings } from 'lucide-react';
+import { ProfileMenu } from './components/ProfileMenu';
 
 function App() {
   const [settings, setSettings] = useState<AppSettings | null>(null);
@@ -68,6 +69,25 @@ function App() {
   const updateGroups = (newGroups: HighlightGroup[]) => {
     if (!settings) return;
     updateSettings({ ...settings, groups: newGroups });
+  };
+
+  const handleSaveProfile = (name: string) => {
+    if (!settings) return;
+    const newProfile: SavedProfile = {
+      id: crypto.randomUUID(),
+      name,
+      groups: settings.groups,
+      createdAt: Date.now()
+    };
+    const updatedProfiles = [...(settings.savedProfiles || []), newProfile];
+    updateSettings({ ...settings, savedProfiles: updatedProfiles });
+  };
+
+  const handleLoadProfile = (profile: SavedProfile) => {
+    if (!settings) return;
+    if (confirm(`Load "${profile.name}"?`)) {
+      updateSettings({ ...settings, groups: profile.groups });
+    }
   };
 
   if (loading || !settings) {
@@ -142,6 +162,12 @@ function App() {
           </div>
 
           <div className="flex items-center gap-xs">
+            <ProfileMenu
+              profiles={settings.savedProfiles || []}
+              onLoad={handleLoadProfile}
+              onSave={handleSaveProfile}
+            />
+            <div style={{ width: 1, height: 16, background: 'var(--color-border)', margin: '0 4px' }} />
             <button
               onClick={() => setShowDataModal(true)}
               className="btn btn-ghost"

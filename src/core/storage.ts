@@ -13,33 +13,28 @@ export interface HighlightGroup {
     terms: string[];  // List of keywords or regex string patterns
 }
 
+export interface SavedProfile {
+    id: string;
+    name: string;
+    groups: HighlightGroup[];
+    createdAt: number;
+}
+
 export interface AppSettings {
     groups: HighlightGroup[];
+    savedProfiles: SavedProfile[];
     caseSensitive: boolean;      // Global default (can be overridden by future group settings)
     processDynamicContent: boolean; // For infinite scroll
 }
 
 const STORAGE_KEY = 'recruiter_highlighter_settings';
 
+import { DEFAULT_PROFILES } from './defaultData';
+
 export const DEFAULT_SETTINGS: AppSettings = {
-    groups: [
-        {
-            id: 'default-tech',
-            name: 'Tech Keywords',
-            color: '#A7F3D0', // Light green
-            enabled: true,
-            type: 'text',
-            terms: ['Java', 'Python', 'React', 'TypeScript', 'Node.js']
-        },
-        {
-            id: 'default-email',
-            name: 'Emails',
-            color: '#FDE68A', // Light yellow
-            enabled: true,
-            type: 'regex',
-            terms: ['[\\w.]+@[\\w.]+\\.\\w+']
-        }
-    ],
+    // Default to the first profile (Web Dev) for immediate utility
+    groups: DEFAULT_PROFILES[0].groups,
+    savedProfiles: DEFAULT_PROFILES,
     caseSensitive: false,
     processDynamicContent: true
 };
