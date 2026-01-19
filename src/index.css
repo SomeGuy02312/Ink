@@ -44,19 +44,16 @@
   color-scheme: light;
   color: var(--color-text-main);
   background-color: var(--color-bg-page);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Hide Scrollbar explicitly */
 ::-webkit-scrollbar {
   display: none;
-}
-
-font-synthesis: none;
-text-rendering: optimizeLegibility;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-padding: 0;
-/* Added from instruction */
 }
 
 /* Reset / Base */
@@ -77,6 +74,8 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  /* Prevent outer scroll */
 }
 
 button {
