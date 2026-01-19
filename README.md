@@ -65,7 +65,20 @@ Each profile includes regex patterns for:
 
 ## 📥 Installation
 
-### From Source
+### Option 1: Download Pre-Built (Recommended)
+
+1. **Download the latest release**
+   - Go to [Releases](https://github.com/SomeGuy02312/Ink/releases)
+   - Download `ink-highlighter-vX.X.X.zip`
+
+2. **Extract and load**
+   - Extract the zip file to a permanent location
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable **Developer mode** (top-right toggle)
+   - Click **Load unpacked**
+   - Select the extracted folder
+
+### Option 2: Build from Source
 
 1. **Clone the repository**
    ```bash
