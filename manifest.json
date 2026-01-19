@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Recruiter Highlighter",
+    "name": "Ink Highlighter",
     "version": "1.0.0",
     "description": "Highlight keywords and regex patterns in recruit profiles.",
     "permissions": [
