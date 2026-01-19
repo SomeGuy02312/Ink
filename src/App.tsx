@@ -51,6 +51,10 @@ function App() {
       if (area === 'local' && changes.sidebarOpen) {
         setSidebarOpen(Boolean(changes.sidebarOpen.newValue));
       }
+      // Listen for settings changes (e.g., from background context menu toggle)
+      if (area === 'local' && changes.recruiter_highlighter_settings) {
+        loadSettings().then(setSettings);
+      }
     };
     chrome.storage.onChanged.addListener(listener);
     return () => chrome.storage.onChanged.removeListener(listener);
